@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Fight</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/g/semantic-ui@2.2.10(components/grid.min.css+components/container.min.css+components/divider.min.css+components/header.min.css+components/site.min.css+semantic.min.css+components/image.min.css+components/popup.min.css)">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.11/components/icon.css">
+</head>
+<body>
+
+  <section class="ui middle aligned grid container">    
+    <div class="row"> 
+      <div class=" four wide column">
+
+          <h2 id="joueur"></h2>
+          <img src="joueur.png" alt="Icone joueur">
+
+        <div>
+          <h2 id="joueurHP">HP : 200/200</h2>
+          <p id="joueurSoin">Soin restant : 3</p>
+        </div>
+
+       <!--  <div class="ui list">
+          <div class="item"></div>
+          <div class="item"></div>
+          <div class="item"></div>
+          <div class="item"></div>
+          <div class="item"></div>
+          <div class="item"></div>
+          <div class="item"></div>
+        </div> -->
+      </div>
+
+      <div class="centered two wide column center aligned">
+        <h1>VS</h1>
+
+      </div>
+
+
+      <div class="right floated four wide column">
+        <h2 id="monstreLVL"></h2>
+        <img src="monstre.jpg" alt="Monstre">
+        <h2 id="monstreHP"></h2>
+      </div>
+    </div>
+
+
+
+
+    <div class="row">
+     <div class="ui vertical buttons">
+      <button id="attaque" class="ui button" data-tooltip="Attaque simple, faible, mais taux de reussite élevé" data-position="right center">Attaque</button>
+      <button id="defense" class="ui button" data-tooltip="Permeet de fortement reduire les dégats de laprochaine attaque" data-position="right center">Défense</button>
+      <button id="soin" class="ui button" data-tooltip="Permet de restaurer quelques HP" data-position="right center">Soin</button>
+      <button id="fuite" class="ui button" data-tooltip="Vraiment ?" data-position="right center">Fuite</button>
+    </div>
+  </div>
+
+  <div class="row"> 
+    <div class="center floated twelve wide column">
+      <p id="log">Log : <br /></p>
+    </div>
+  </div>
+
+</section>
+
+
+
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/g/semantic-ui@2.2.10(semantic.min.js+components/popup.min.js)"></script>
+
+<script src="combat.js"></script>
+</body>
+
+
+</html>

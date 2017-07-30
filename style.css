@@ -1,0 +1,12 @@
+.column {
+/*	border: 1px solid;
+}
+.row {
+	border: 1px solid;
+}*/
+#log {
+	height: 250px;
+	font-size: 1.5em;
+	overflow-y: scroll;
+
+}
