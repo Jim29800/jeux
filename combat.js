@@ -6,7 +6,7 @@ var joueur = {
 	niveau : 1,
 	dommage : 100,
 	precision: 95, // taux de reussite de l'attaque
-	critique : 15, // % de chance de critique
+	critique : 20, // % de chance de critique
 	hpMax : 200,
 	hpActuel : 200,
 	soin : 3
@@ -22,7 +22,7 @@ var CPU1 = {
 	overDriveActuel : 0
 };
 var CPU2 = {
-	niveau : 5,
+	niveau : 2,
 	dommage : 10,
 	precision: 95, // taux de reussite de l'attaque
 	critique : 10, // % de chance de critique
@@ -31,10 +31,45 @@ var CPU2 = {
 	overDriveMax : 100,
 	overDriveActuel : 0
 };
-var selectCPU = Math.floor(Math.random() * 2) + 1;
-var CPU = CPU1;
-//choisi un CPU aléatoirement
+var CPU3 = {
+	niveau : 3,
+	dommage : 10,
+	precision: 95, // taux de reussite de l'attaque
+	critique : 10, // % de chance de critique
+	hpMax : 3000,
+	hpActuel : 3000,
+	overDriveMax : 100,
+	overDriveActuel : 0
+};
+var CPU4 = {
+	niveau : 4,
+	dommage : 10,
+	precision: 95, // taux de reussite de l'attaque
+	critique : 10, // % de chance de critique
+	hpMax : 4000,
+	hpActuel : 4000,
+	overDriveMax : 100,
+	overDriveActuel : 0
+};
+var CPU5 = {
+	niveau : 5,
+	dommage : 10,
+	precision: 95, // taux de reussite de l'attaque
+	critique : 10, // % de chance de critique
+	hpMax : 5000,
+	hpActuel : 5000,
+	overDriveMax : 100,
+	overDriveActuel : 0
+};
+var selectCPU = Math.floor(Math.random() * 5) + 1;
+var CPU = "";
+//choisi un CPU aléatoirement au chargement
 $( document ).ready(function() {
+	aleatoireCPU()
+});
+//Declaration de mes fonctions
+//fonction qui permet de choisir un CPU aleatoirement
+function aleatoireCPU(){
 	switch (selectCPU) {
 		case 1 :
 		$("#monstreHP").text("HP : " + CPU1.hpActuel + "/" + CPU1.hpMax)  ;
@@ -46,13 +81,27 @@ $( document ).ready(function() {
 		$("#monstreLVL").text("NIVEAU " + CPU2.niveau);
 		CPU = CPU2;
 		break;
+		case 3 :
+		$("#monstreHP").text("HP : " + CPU3.hpActuel + "/" + CPU3.hpMax)  ;
+		$("#monstreLVL").text("NIVEAU " + CPU3.niveau);
+		CPU = CPU3;
+		break;
+		case 4 :
+		$("#monstreHP").text("HP : " + CPU4.hpActuel + "/" + CPU4.hpMax)  ;
+		$("#monstreLVL").text("NIVEAU " + CPU4.niveau);
+		CPU = CPU4;
+		break;
+		case 5 :
+		$("#monstreHP").text("HP : " + CPU5.hpActuel + "/" + CPU5.hpMax)  ;
+		$("#monstreLVL").text("NIVEAU " + CPU5.niveau);
+		CPU = CPU5;
+		break;
 		default :
 		$("#monstreHP").text("HP : " + CPU1.hpActuel + "/" + CPU1.hpMax)  ;
 		$("#monstreHP").text("NIVEAU " + CPU1.niveau);
 		CPU = CPU1;
 	}
-});
-//Declaration de mes fonctions
+}
 // calcule si le coup sera critique ou non
 function chanceCritique(joueurOuCPU){
 	var critiqueChance = Math.floor(Math.random() * 100) + 1;
@@ -82,7 +131,8 @@ function attaqueDmg(joueurOuCPU){
 	var toucher = chanceToucher(joueurOuCPU);
 	if (toucher === true){
 		if (critique === true) {
-			dommage = joueurOuCPU.dommage * 1.05
+			//% de dommage en plus en cas de critique
+			dommage = joueurOuCPU.dommage * 1.3
 		}
 		else{
 			dommage = joueurOuCPU.dommage
@@ -132,4 +182,15 @@ $("#attaque").click(function(){
 	}
 	//permet de scroll automatiquement vers le bas
 	$("#log").scrollTop($("#log")[0].scrollHeight);
+});
+
+$("#fuite").click(function(){
+	var fuite = confirm("Voulez vous vraiment fuir ?")
+	if (fuite === true){
+		alert("tsss...")
+	selectCPU = Math.floor(Math.random() * 5) + 1;
+	aleatoireCPU();}
+	else{
+		alert("Bien combattez !")
+	}
 });
