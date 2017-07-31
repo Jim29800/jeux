@@ -5,7 +5,7 @@
 var joueur = {
 	niveau : 1,
 	dommage : 100,
-	precision: 95, // taux de reussite de l'attaque
+	precision: 90, // taux de reussite de l'attaque
 	critique : 20, // % de chance de critique
 	hpMax : 200,
 	hpActuel : 200,
@@ -65,12 +65,12 @@ var selectCPU = Math.floor(Math.random() * 5) + 1;
 var CPU = "";
 //choisi un CPU aléatoirement au chargement
 $( document ).ready(function() {
-	aleatoireCPU()
+	aleatoireCPU(selectCPU)
 });
 //Declaration de mes fonctions
 //fonction qui permet de choisir un CPU aleatoirement
-function aleatoireCPU(){
-	switch (selectCPU) {
+function aleatoireCPU(idCPU){
+	switch (idCPU) {
 		case 1 :
 		$("#monstreHP").text("HP : " + CPU1.hpActuel + "/" + CPU1.hpMax)  ;
 		$("#monstreLVL").text("NIVEAU " + CPU1.niveau);
@@ -150,7 +150,7 @@ function attaqueLancerParJoueur(ChoixDuCPU){
 	var attaque = attaqueDmg(joueur);
 	var resultat = 0;
 	// verifi si l'attaque a toucher
-	if (attaque > 0){
+	if (attaque > 1){
 		resultat = ChoixDuCPU.hpActuel -= attaque ;
 		//verifie si il reste des HP au CPU
 		if (resultat > 0) {
@@ -167,10 +167,36 @@ function attaqueLancerParJoueur(ChoixDuCPU){
 	}
 	//si l'attaque à manquer
 	else{
-		statut = "L'attaque à manquer"
+		statut = $("#log").append("Votre attaque à manquer <br />")
 	}
 	return statut
-}
+};
+function attaqueLancerParCPU(ChoixDuJoueur){
+	var statut = 0;
+	var attaque = attaqueDmg(CPU);
+	var resultat = 0;
+	// verifi si l'attaque a toucher
+	if (attaque > 1){
+		resultat = ChoixDuJoueur.hpActuel -= attaque ;
+		//verifie si il reste des HP au CPU
+		if (resultat > 0) {
+			statut = resultat
+			$("#joueurHP").text("HP : " + statut + "/" + joueur.hpMax)
+		}
+		//Si le CPU n'a plus de HP
+		else {
+			statut = "Mort"
+			$("#joueurHP").text(statut)
+		}
+
+		$("#log").append("L'ennemi vous inflige : " + attaque + " points de dégats !<br />")
+	}
+	//si l'attaque à manquer
+	else{
+		statut = $("#log").append("L'attaque ennemi à manquer <br />")
+	}
+	return statut
+};
 // Action des bouttons
 $("#attaque").click(function(){
 	//verifie qu'il reste des HP a la cible
@@ -182,15 +208,22 @@ $("#attaque").click(function(){
 	}
 	//permet de scroll automatiquement vers le bas
 	$("#log").scrollTop($("#log")[0].scrollHeight);
+	attaqueLancerParCPU(joueur)
 });
 
 $("#fuite").click(function(){
 	var fuite = confirm("Voulez vous vraiment fuir ?")
 	if (fuite === true){
-		alert("tsss...")
-	selectCPU = Math.floor(Math.random() * 5) + 1;
-	aleatoireCPU();}
-	else{
-		alert("Bien combattez !")
-	}
+		$("#log").append("OOOPPSSS un nouveau monstre ce présente à vous")
+		selectCPU = Math.floor(Math.random() * 5) + 1;
+		aleatoireCPU(selectCPU);}
+		else{
+			$("#log").append("Bien combattez !")
+		}
+	});
+$("#choixLVL").click(function(){
+	var level = $("#choixLVL").val();
+	level = parseInt(level, 10)
+	aleatoireCPU(level);
+
 });

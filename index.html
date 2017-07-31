@@ -14,8 +14,8 @@
     <div class="row"> 
       <div class=" four wide column">
 
-          <h2 id="joueur"></h2>
-          <img src="joueur.png" alt="Icone joueur">
+        <h2 id="joueur"></h2>
+        <img src="joueur.png" alt="Icone joueur">
 
         <div>
           <h2 id="joueurHP">HP : 200/200</h2>
@@ -40,19 +40,23 @@
 
 
       <div class="right floated four wide column">
+        <select class="ui dropdown" id="choixLVL">
+        <option value="">Niveau</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
         <h2 id="monstreLVL"></h2>
         <img src="monstre.jpg" alt="Monstre">
         <h2 id="monstreHP"></h2>
       </div>
     </div>
-
-
-
-
     <div class="row">
      <div class="ui vertical buttons">
       <button id="attaque" class="ui button" data-tooltip="Attaque simple, faible, mais taux de reussite élevé" data-position="right center">Attaque</button>
-      <button id="defense" class="ui button" data-tooltip="Permeet de fortement reduire les dégats de laprochaine attaque" data-position="right center">Défense</button>
+      <button id="cecite" class="ui button" data-tooltip="Permet de reduire la précision de l'ennemi actuel" data-position="right center">Cécité</button>
       <button id="soin" class="ui button" data-tooltip="Permet de restaurer quelques HP" data-position="right center">Soin</button>
       <button id="fuite" class="ui button" data-tooltip="Vraiment ?" data-position="right center">Fuite</button>
     </div>
