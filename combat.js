@@ -1,7 +1,7 @@
 // $("#my_div").scrollTop($("#my_div")[0].scrollHeight); //Permet le scroll automatique
 //demande le nom du joueur
-// var nomJoueur = prompt("Votre Nom ?")
-// $("#joueur").text(nomJoueur);
+var nomJoueur = prompt("Votre Nom ?")
+$("#joueur").text(nomJoueur);
 var joueur = {
 	niveau : 1,
 	dommage : 100,
@@ -65,7 +65,8 @@ var selectCPU = Math.floor(Math.random() * 5) + 1;
 var CPU = "";
 //choisi un CPU aléatoirement au chargement
 $( document ).ready(function() {
-	aleatoireCPU(selectCPU)
+	//aleatoireCPU(selectCPU)
+	aleatoireCPU(1)
 });
 //Declaration de mes fonctions
 //fonction qui permet de choisir un CPU aleatoirement
@@ -199,18 +200,25 @@ function attaqueLancerParCPU(ChoixDuJoueur){
 };
 // Action des bouttons
 $("#attaque").click(function(){
+	//verifi qu'il reste des HP au joueur
+	if (joueur.hpActuel > 0) {
 	//verifie qu'il reste des HP a la cible
-	if (CPU.hpActuel > 0) {
+		if (CPU.hpActuel > 0) {
+		//attaque joueur
 		attaqueLancerParJoueur(CPU)
+		}
+		else{
+		$("#log").append("Votre cible est morte !!!" + "<br />")
+		}
+	//attaque ennemi	
+	attaqueLancerParCPU(joueur)
 	}
 	else{
-		$("#log").append("Votre cible est morte !!!" + "<br />")
-	}
+	$("#log").append("Vous êtes mort" + "<br />")
+	}	
 	//permet de scroll automatiquement vers le bas
 	$("#log").scrollTop($("#log")[0].scrollHeight);
-	attaqueLancerParCPU(joueur)
 });
-
 $("#fuite").click(function(){
 	var fuite = confirm("Voulez vous vraiment fuir ?")
 	if (fuite === true){
