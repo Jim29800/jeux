@@ -1,4 +1,5 @@
 // $("#my_div").scrollTop($("#my_div")[0].scrollHeight); //Permet le scroll automatique
+$("#suivant").hide()
 //demande le nom du joueur
 //var nomJoueur = prompt("Votre Nom ?")
 //$("#joueur").text(nomJoueur);
@@ -17,11 +18,11 @@ var cpus = {
 }
 //definitation de nombre de cpu
 for (var i = 1; i < 10; i++) {
-	cpus[i] = new creationCPU	(i, (i * 10), (i / 8 + 85), (i / 8 +10) , (i * 1000), 100)
+	cpus[i] = new creationCPU(i, (i * 10), (i / 8 + 85), (i / 8 + 10), (i * 1000), 100)
 }
 //ajout du nombre de CPU dans la liste dans le HTML
-for (var i = 1; i < Object.keys(cpus).length + 1;  i++) {
-	$("#choixLVL").append("<option value= '" + i + "' >" + i + "</option >")	
+for (var i = 1; i < Object.keys(cpus).length + 1; i++) {
+	$("#choixLVL").append("<option value= '" + i + "' >" + i + "</option >")
 }
 //attribue le CPU courant
 var CPU = "";
@@ -39,7 +40,8 @@ function creationCPU(niveau, dmg, precision, critique, hpMax, overDriveMax) {
 		this.hpMax = hpMax,
 		this.hpActuel = hpMax,
 		this.overDriveMax = overDriveMax,
-		this.overDriveActuel = overDriveMax;
+		this.overDriveActuel = overDriveMax,
+		this.exp = true;
 }
 //affiche si critique
 function crit() {
@@ -50,7 +52,7 @@ function crit() {
 		return ""
 	}
 }
-//fonction qui permet de choisir un CPU aleatoirement
+//fonction qui permet de choisir un CPU 
 function choixCPU(lvl) {
 	$("#monstreHP").text("HP : " + cpus[lvl].hpActuel + "/" + cpus[lvl].hpMax);
 	$("#monstreLVL").text("NIVEAU " + cpus[lvl].niveau);
@@ -116,6 +118,7 @@ function attaqueLancerParJoueur(ChoixDuCPU) {
 		}
 		//Si le CPU n'a plus de HP
 		else {
+			$("#suivant").show()
 			statut = "Mort"
 			$("#monstreHP").text(statut)
 		}
@@ -154,6 +157,16 @@ function attaqueLancerParCPU(ChoixDuJoueur) {
 	}
 	return statut
 };
+function levelUP(selectJoueur) {
+	selectJoueur.niveau++;
+	selectJoueur.dommage += 100;
+	selectJoueur.precision *= 1.005;
+	selectJoueur.critique *= 1.005;
+	selectJoueur.hpMax += 100;
+	selectJoueur.hpActuel = selectJoueur.hpMax
+	$("#joueurHP").text("HP : " + selectJoueur.hpActuel + "/" + selectJoueur.hpMax)
+	$("#joueurLVL").text("Niveau " + selectJoueur.niveau)
+}
 // Action des bouttons
 $("#attaque").click(function () {
 	//verifi qu'il reste des HP au joueur
@@ -166,9 +179,8 @@ $("#attaque").click(function () {
 			attaqueLancerParCPU(joueur)
 		}
 		else {
-			$("#log").append("Votre cible est morte !!!" + "<br />")
+			$("#log").append("Votre cible est morte !!!" + "<br />")			
 		}
-
 	}
 	else {
 		$("#log").append("Vous êtes mort" + "<br />")
@@ -191,8 +203,16 @@ $("#choixLVL").click(function () {
 	var level = $("#choixLVL").val();
 	level = parseInt(level, 10)
 	choixCPU(level);
-
 });
+$("#suivant").click(function () {
+	if (CPU.exp) {
+		levelUP(joueur);
+		CPU.exp = false;
+	}
+	$("#suivant").hide()
+	var sui = CPU.niveau + 1
+	choixCPU(sui)
+})
 
 
 
