@@ -12,12 +12,12 @@ var joueur = {
 	soin: 3
 };
 //definition des CPU
+//objet cpus qui contient tous les cpus
 var cpus = {
-	1: new creationCPU(1, 10, 95, 10, 1000, 100),
-	2: new creationCPU(2, 10, 95, 10, 2000, 100),
-	3: new creationCPU(3, 10, 95, 10, 3000, 100),
-	4: new creationCPU(4, 10, 95, 10, 4000, 100),
-	5: new creationCPU(5, 10, 95, 10, 5000, 100)
+}
+//definitation de nombre de cpu
+for (var i = 1; i < 10; i++) {
+	cpus[i] = new creationCPU	(i, (i * 10), (i / 8 + 85), (i / 8 +10) , (i * 1000), 100)
 }
 //ajout du nombre de CPU dans la liste dans le HTML
 for (var i = 1; i < Object.keys(cpus).length + 1;  i++) {
@@ -217,10 +217,5 @@ $("#choixLVL").click(function () {
 
 
 
-// var cpus = {
-// 	1: new creationCPU(1, 10, 95, 10, 1000, 100),
-// 	2: new creationCPU(2, 10, 95, 10, 2000, 100),
-// 	3: new creationCPU(3, 10, 95, 10, 3000, 100),
-// 	4: new creationCPU(4, 10, 95, 10, 4000, 100),
-// 	5: new creationCPU(5, 10, 95, 10, 5000, 100)
-// }
+
+console.log(cpus)
