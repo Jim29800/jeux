@@ -253,13 +253,15 @@ $("#attaque").click(function () {
 $("#fuite").click(function () {
 	var fuite = confirm("Voulez vous vraiment fuir ?")
 	if (fuite === true) {
-		$("#log").append("OOOPPSSS un nouveau monstre ce présente à vous")
+		$("#log").append("OOOPPSSS un nouveau monstre ce présente à vous"+ "<br />")
 		var selectCPU = Math.floor(Math.random() * 5) + 1;
 		choixCPU(selectCPU);
 	}
 	else {
-		$("#log").append("Bien combattez !")
+		$("#log").append("Bien combattez !"+ "<br />")
 	}
+	//permet de scroll automatiquement vers le bas
+	$("#log").scrollTop($("#log")[0].scrollHeight);
 });
 $("#choixLVL").click(function () {
 	var level = $("#choixLVL").val();
