@@ -19,6 +19,10 @@ var cpus = {
 	4: new creationCPU(4, 10, 95, 10, 4000, 100),
 	5: new creationCPU(5, 10, 95, 10, 5000, 100)
 }
+//ajout du nombre de CPU dans la liste dans le HTML
+for (var i = 1; i < Object.keys(cpus).length + 1;  i++) {
+	$("#choixLVL").append("<option value= '" + i + "' >" + i + "</option >")	
+}
 //attribue le CPU courant
 var CPU = "";
 var critiqueReussi = false;
@@ -209,3 +213,14 @@ $("#choixLVL").click(function () {
 // }
 // //pour l'appeler
 // console.log(cpus[3])
+
+
+
+
+// var cpus = {
+// 	1: new creationCPU(1, 10, 95, 10, 1000, 100),
+// 	2: new creationCPU(2, 10, 95, 10, 2000, 100),
+// 	3: new creationCPU(3, 10, 95, 10, 3000, 100),
+// 	4: new creationCPU(4, 10, 95, 10, 4000, 100),
+// 	5: new creationCPU(5, 10, 95, 10, 5000, 100)
+// }
