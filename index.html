@@ -21,6 +21,11 @@
         <img src="joueur.png" alt="Icone joueur">
 
         <div>
+          <div class="ui progress blue" id="barreHPjoueur" data-value="1" data-total="20">
+            <div class="bar">
+              <div class="progress"></div>
+            </div>
+          </div>
           <h2 id="joueurHP">HP : 200/200</h2>
           <p id="joueurSoin">Soin restant : 3</p>
         </div>
@@ -50,22 +55,30 @@
         </select>
         <h2 id="monstreLVL"></h2>
         <img src="monstre.jpg" alt="Monstre">
+        <div class="ui progress blue" id="barreHPcpu" data-value="1" data-total="20">
+          <div class="bar">
+            <div class="progress"></div>
+          </div>
+        </div>
         <h2 id="monstreHP"></h2>
       </div>
     </div>
     <div class="row">
-      <div class="ui vertical buttons">
-        <button id="attaque" class="ui button" data-tooltip="Attaque simple, faible, mais taux de reussite élevé" data-position="right center">Attaque</button>
-        <button id="cecite" class="ui button" data-tooltip="Permet de reduire la précision de l'ennemi actuel" data-position="right center">Cécité</button>
-        <button id="soin" class="ui button" data-tooltip="Permet de restaurer quelques HP" data-position="right center">Soin</button>
-        <button id="fuite" class="ui button" data-tooltip="Vraiment ?" data-position="right center">Fuite</button>
+      <div class=" four wide column">
+        <div class="ui vertical buttons">
+          <button id="attaque" class="ui button" data-tooltip="Attaque simple, faible, mais taux de reussite élevé" data-position="right center">Attaque</button>
+          <button id="cecite" class="ui button" data-tooltip="Permet de reduire la précision de l'ennemi actuel" data-position="right center">Cécité</button>
+          <button id="soin" class="ui button" data-tooltip="Permet de restaurer quelques HP" data-position="right center">Soin</button>
+          <button id="fuite" class="ui button" data-tooltip="Vraiment ?" data-position="right center">Fuite</button>
+        </div>
       </div>
-    </div>
+      <div class=" ten wide column">
+        <div class="center floated twelve wide column">
+          <p id="log">Log : <br /></p>
+        </div>
+      </div>
 
-    <div class="row">
-      <div class="center floated twelve wide column">
-        <p id="log">Log : <br /></p>
-      </div>
+
     </div>
 
   </section>

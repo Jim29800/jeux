@@ -27,11 +27,65 @@ for (var i = 1; i < Object.keys(cpus).length + 1; i++) {
 //attribue le CPU courant
 var CPU = "";
 var critiqueReussi = false;
-//choisi un CPU aléatoirement au chargement
+//choisi un CPU au chargement
 $(document).ready(function () {
 	choixCPU(1)
 });
 //Declaration de mes fonctions
+function afficheHPcpu() {
+	if (CPU.hpActuel / CPU.hpMax * 100 > 50) {
+		$('#barreHPcpu').removeClass("orange")
+		$('#barreHPcpu').removeClass("red")
+		$('#barreHPcpu').addClass("blue")
+		$('#barreHPcpu').show()
+	}
+	else if (CPU.hpActuel / CPU.hpMax * 100 > 15) {
+		$('#barreHPcpu').removeClass("blue")
+		$('#barreHPcpu').removeClass("red")
+		$('#barreHPcpu').addClass("orange")
+		$('#barreHPcpu').show()
+	}
+	else if (CPU.hpActuel / CPU.hpMax * 100 > 0) {
+		$('#barreHPcpu').removeClass("blue")
+		$('#barreHPcpu').removeClass("orange")
+		$('#barreHPcpu').addClass("red")
+		$('#barreHPcpu').show()
+	}
+	else if (CPU.hpActuel <=0) { 
+		$('#barreHPcpu').hide()
+	}
+	$('#barreHPcpu').data("value", CPU.hpActuel)
+	$('#barreHPcpu').data("total", CPU.hpMax)
+	$('#barreHPcpu').progress({
+	});
+}
+function afficheHPjoueur() {
+	if (joueur.hpActuel / joueur.hpMax * 100 > 50) {
+		$('#barreHPjoueur').removeClass("orange")
+		$('#barreHPjoueur').removeClass("red")
+		$('#barreHPjoueur').addClass("blue")
+		$('#barreHPjoueur').show()
+	}
+	else if (joueur.hpActuel / joueur.hpMax * 100 > 15) {
+		$('#barreHPjoueur').removeClass("blue")
+		$('#barreHPjoueur').removeClass("red")
+		$('#barreHPjoueur').addClass("orange")
+		$('#barreHPjoueur').show()
+	}
+	else if (joueur.hpActuel / joueur.hpMax * 100 > 0) {
+		$('#barreHPjoueur').removeClass("blue")
+		$('#barreHPjoueur').removeClass("orange")
+		$('#barreHPjoueur').addClass("red")
+		$('#barreHPjoueur').show()
+	}
+	else if (joueur.hpActuel <=0) { 
+		$('#barreHPjoueur').hide()
+	}
+	$('#barreHPjoueur').data("value", joueur.hpActuel)
+	$('#barreHPjoueur').data("total", joueur.hpMax)
+	$('#barreHPjoueur').progress({
+	});
+}
 function creationCPU(niveau, dmg, precision, critique, hpMax, overDriveMax) {
 	this.niveau = niveau,
 		this.dommage = dmg,
@@ -57,6 +111,8 @@ function choixCPU(lvl) {
 	$("#monstreHP").text("HP : " + cpus[lvl].hpActuel + "/" + cpus[lvl].hpMax);
 	$("#monstreLVL").text("NIVEAU " + cpus[lvl].niveau);
 	CPU = cpus[lvl];
+	afficheHPcpu()
+	afficheHPjoueur()
 }
 // calcule si le coup sera critique ou non
 function chanceCritique(joueurOuCPU) {
@@ -114,12 +170,15 @@ function attaqueLancerParJoueur(ChoixDuCPU) {
 		//verifie si il reste des HP au CPU
 		if (resultat > 0) {
 			statut = resultat
+			//affihce hp CPU
+			afficheHPcpu()
 			$("#monstreHP").text("HP : " + statut + "/" + CPU.hpMax)
 		}
 		//Si le CPU n'a plus de HP
 		else {
 			$("#suivant").show()
 			statut = "Mort"
+			afficheHPcpu()
 			$("#monstreHP").text(statut)
 		}
 
@@ -141,10 +200,12 @@ function attaqueLancerParCPU(ChoixDuJoueur) {
 		//verifie si il reste des HP au CPU
 		if (resultat > 0) {
 			statut = resultat
+			afficheHPjoueur()
 			$("#joueurHP").text("HP : " + statut + "/" + joueur.hpMax)
 		}
 		//Si le CPU n'a plus de HP
 		else {
+			afficheHPjoueur()
 			statut = "Mort"
 			$("#joueurHP").text(statut)
 		}
@@ -177,9 +238,10 @@ $("#attaque").click(function () {
 			attaqueLancerParJoueur(CPU)
 			//attaque ennemi	
 			attaqueLancerParCPU(joueur)
+
 		}
 		else {
-			$("#log").append("Votre cible est morte !!!" + "<br />")			
+			$("#log").append("Votre cible est morte !!!" + "<br />")
 		}
 	}
 	else {
@@ -234,6 +296,15 @@ $("#suivant").click(function () {
 // //pour l'appeler
 // console.log(cpus[3])
 
+
+// $('#barreHPcpu').data("value", CPU.hpActuel)
+// $('#barreHPcpu').data("total", CPU.hpMax)
+// $('#barreHPcpu').progress({
+// 	label: 'ratio',
+// 	text: {
+// 		ratio: '{value} de {total}'
+// 	}
+// });
 
 
 
